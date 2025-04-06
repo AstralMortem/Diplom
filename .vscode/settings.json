@@ -1,0 +1,33 @@
+{
+    "python.analysis.autoIndent": true,
+    "python.analysis.inlayHints.callArgumentNames": "partial",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.indexing": true,
+    "python.analysis.packageIndexDepths": [
+    {
+      "name": "sqlalchemy",
+      "depth": 5,
+      "includeAllSymbols": true
+    },
+    {
+        "name": "fastapi",
+        "depth": 5,
+        "includeAllSymbols": true
+    }
+    
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+  }
+}
