@@ -15,6 +15,8 @@ def set_exception(app: FastAPI):
 
 
 def mount_media(app: FastAPI):
+    if not config.MEDIA_DIR.exists():
+        config.MEDIA_DIR.mkdir(parents=False, exist_ok=True)
     app.mount("/media", StaticFiles(directory=config.MEDIA_DIR), name="media")
 
 
@@ -26,3 +28,7 @@ def create_app() -> FastAPI:
     mount_media(app)
 
     return app
+
+
+
+app = create_app()

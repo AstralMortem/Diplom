@@ -72,10 +72,10 @@ class Doctor(PersonMixin, Model):
     email: Mapped[str] = mapped_column(String(150), unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column(Text())
     specialization: Mapped[str] = mapped_column(String(100))
-    department_id: Mapped[int] = mapped_column(ForeignKey("departments.department_id"))
+    department_id: Mapped[int | None] = mapped_column(ForeignKey("departments.department_id"))
     role_id: Mapped[int] = mapped_column(ForeignKey("roles.role_id"))
 
-    department: Mapped[Department] = relationship(lazy="joined")
+    department: Mapped[Department | None] = relationship(lazy="joined")
     role: Mapped[Role] = relationship(lazy="joined")
     medical_records: Mapped[list["MedicalRecord"]] = relationship(lazy="joined")
     patients: Mapped[list["Patient"]] = relationship(lazy="joined", secondary="medical_records")

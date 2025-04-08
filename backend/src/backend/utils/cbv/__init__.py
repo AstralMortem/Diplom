@@ -106,7 +106,17 @@ class Controller(ControllerRoutes):
             if isinstance(param.default, DependsClass) and isinstance(
                 param.default.dependency, Authorization
             ):
-                param.default.dependency.resource = cls.resource
-                params[idx].replace(default=param.default)
+                if param.default.dependency.resource is None:
+                    param.default.dependency.resource = cls.resource
+                    params[idx].replace(default=param.default)
 
         return with_signature(inspect.Signature(params))(func)
+
+    @classmethod
+    def __override_permissions_list(cls, deps: list[DependsClass]):
+        for idx, dep in enumerate(deps):
+            if isinstance(dep.dependency, Authorization):
+                if dep.dependency.resource is None:
+                    dep.dependency.resource = cls.resource
+                    deps[idx] = dep
+        return deps

@@ -9,6 +9,8 @@ ROUTE_MARKER = "__is_controller_route__"
 def get_wrapped_route(func, path, method, **route_kwargs):
     def wrapper(*args, **kwargs):
         current_class: type = kwargs.get("cls")
+        if deps:=route_kwargs.get('dependencies', []):
+            route_kwargs["dependencies"] = current_class._Controller__override_permissions_list(deps)
         return APIRoute(
             path=path,
             methods=[method],

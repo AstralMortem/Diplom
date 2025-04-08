@@ -25,7 +25,7 @@ class DoctorRead(Schema):
     is_active: bool
     gender: Gender
     specialization: str
-    department: DepartmentRead
+    department: DepartmentRead | None = None
     
 
 class DoctorDetailRead(DoctorRead):
@@ -55,7 +55,7 @@ class DoctorCreate(Schema):
     birth_data: date
     gender: Gender
     specialization: str
-    department_id: int
+    department_id: int | None = None
     role_id: int | None = None
     password: str
 

@@ -54,8 +54,9 @@ class _ANDAuthorization(Authorization):
 
 
 class HasPermission(Authorization):
-    def __init__(self, action: PermissionAction):
+    def __init__(self, action: PermissionAction | str, resource: str | None = None):
         self.action = action
+        self.resource = resource
 
     def check(self, user: Doctor) -> bool:
         permissions = user.role.permissions
@@ -77,3 +78,5 @@ class HasRole(Authorization):
 
     def __repr__(self) -> str:
         return f"HasRole({self.role})"
+
+__all__ = ["Authorization", "HasRole", "HasPermission"]

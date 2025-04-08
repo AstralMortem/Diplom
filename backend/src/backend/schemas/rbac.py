@@ -2,10 +2,10 @@ from enum import StrEnum
 from .base import Schema
 
 class PermissionAction(StrEnum):
-    CREATE = "c"
-    RETRIEVE = "r"
-    UPDATE = "u"
-    DELETE = "d"
+    CREATE = "create"
+    RETRIEVE = "retrive"
+    UPDATE = "update"
+    DELETE = "delete"
 
 
 class PermissionRead(Schema):
