@@ -1,0 +1,4138 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+    },
+    "paths": {
+    "/api/v1/auth/forgot-password": {
+    "post": {
+    "tags": [
+    "auth"
+    ],
+    "summary": "Authcontroller.Forgot Password",
+    "operationId": "AuthController_forgot_password_api_v1_auth_forgot_password_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string",
+    "title": "Username"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/auth/login": {
+    "post": {
+    "tags": [
+    "auth"
+    ],
+    "summary": "Authcontroller.Login",
+    "operationId": "AuthController_login_api_v1_auth_login_post",
+    "requestBody": {
+    "content": {
+    "application/x-www-form-urlencoded": {
+    "schema": {
+    "$ref": "#/components/schemas/Body_AuthController_login_api_v1_auth_login_post"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/LoginResponse"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/auth/logout": {
+    "post": {
+    "tags": [
+    "auth"
+    ],
+    "summary": "Authcontroller.Logout",
+    "operationId": "AuthController_logout_api_v1_auth_logout_post",
+    "responses": {
+    "204": {
+    "description": "Successful response"
+    }
+    },
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ]
+    }
+    },
+    "/api/v1/auth/me": {
+    "get": {
+    "tags": [
+    "auth"
+    ],
+    "summary": "Authcontroller.Me",
+    "operationId": "AuthController_me_api_v1_auth_me_get",
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorDetailRead"
+    }
+    }
+    }
+    }
+    },
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ]
+    },
+    "patch": {
+    "tags": [
+    "auth"
+    ],
+    "summary": "Authcontroller.Update Me",
+    "operationId": "AuthController_update_me_api_v1_auth_me_patch",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorUpdate"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    },
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ]
+    }
+    },
+    "/api/v1/patients/": {
+    "post": {
+    "tags": [
+    "patients"
+    ],
+    "summary": "Patientcontroller.Create Patient",
+    "operationId": "PatientController_create_patient_api_v1_patients__post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PatientCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PatientDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "patients"
+    ],
+    "summary": "Patientcontroller.List Patients",
+    "operationId": "PatientController_list_patients_api_v1_patients__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "default": 1,
+    "title": "Page"
+    }
+    },
+    {
+    "name": "size",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "maximum": 100,
+    "minimum": 1,
+    "default": 50,
+    "title": "Size"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Page_PatientRead_"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/patients/{patient_id}": {
+    "delete": {
+    "tags": [
+    "patients"
+    ],
+    "summary": "Patientcontroller.Delete Patient",
+    "operationId": "PatientController_delete_patient_api_v1_patients__patient_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "patient_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    }
+    }
+    ],
+    "responses": {
+    "204": {
+    "description": "Successful response"
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "patients"
+    ],
+    "summary": "Patientcontroller.Get Patient",
+    "operationId": "PatientController_get_patient_api_v1_patients__patient_id__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "patient_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PatientDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "patch": {
+    "tags": [
+    "patients"
+    ],
+    "summary": "Patientcontroller.Patch Patient",
+    "operationId": "PatientController_patch_patient_api_v1_patients__patient_id__patch",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "patient_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PatientUpdate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PatientDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/med-records/": {
+    "post": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.Create Record",
+    "description": "Create a new medical record.",
+    "operationId": "MedRecordController_create_record_api_v1_med_records__post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/MedRecordCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/MedRecordRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.List Records",
+    "operationId": "MedRecordController_list_records_api_v1_med_records__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "default": 1,
+    "title": "Page"
+    }
+    },
+    {
+    "name": "size",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "maximum": 100,
+    "minimum": 1,
+    "default": 50,
+    "title": "Size"
+    }
+    },
+    {
+    "name": "patient_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "uuid"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Patient Id"
+    }
+    },
+    {
+    "name": "doctor_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "uuid"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Doctor Id"
+    }
+    },
+    {
+    "name": "department_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "anyOf": [
+    {
+    "type": "integer"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Department Id"
+    }
+    },
+    {
+    "name": "examination_date",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "date-time"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Examination Date"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Page_MedRecordRead_"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/med-records/{record_id}/transcriptions": {
+    "post": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.Create Transcription",
+    "operationId": "MedRecordController_create_transcription_api_v1_med_records__record_id__transcriptions_post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "record_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/TranscriptionCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/TranscriptionRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.List Transcriptions",
+    "operationId": "MedRecordController_list_transcriptions_api_v1_med_records__record_id__transcriptions_get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "record_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    }
+    },
+    {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "default": 1,
+    "title": "Page"
+    }
+    },
+    {
+    "name": "size",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "maximum": 100,
+    "minimum": 1,
+    "default": 50,
+    "title": "Size"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Page_TranscriptionRead_"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/med-records/{record_id}": {
+    "delete": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.Delete Record",
+    "description": "Delete a medical record.",
+    "operationId": "MedRecordController_delete_record_api_v1_med_records__record_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "record_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.Get Record",
+    "description": "Get a medical record by ID.",
+    "operationId": "MedRecordController_get_record_api_v1_med_records__record_id__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "record_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/MedRecordDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "patch": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.Update Record",
+    "description": "Update a medical record.",
+    "operationId": "MedRecordController_update_record_api_v1_med_records__record_id__patch",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "record_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/MedRecordUpdate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/MedRecordRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/med-records/{record_id}/transcriptions/{transcription_id}": {
+    "delete": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.Delete Transcription",
+    "operationId": "MedRecordController_delete_transcription_api_v1_med_records__record_id__transcriptions__transcription_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "record_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    }
+    },
+    {
+    "name": "transcription_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Transcription Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "MedRecords"
+    ],
+    "summary": "Medrecordcontroller.Get Transcription",
+    "operationId": "MedRecordController_get_transcription_api_v1_med_records__record_id__transcriptions__transcription_id__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "record_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    }
+    },
+    {
+    "name": "transcription_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Transcription Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/TranscriptionDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/doctors/": {
+    "post": {
+    "tags": [
+    "Doctors"
+    ],
+    "summary": "Doctorcontroller.Create Doctor",
+    "operationId": "DoctorController_create_doctor_api_v1_doctors__post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Doctors"
+    ],
+    "summary": "Doctorcontroller.List Doctors",
+    "operationId": "DoctorController_list_doctors_api_v1_doctors__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "default": 1,
+    "title": "Page"
+    }
+    },
+    {
+    "name": "size",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "maximum": 100,
+    "minimum": 1,
+    "default": 50,
+    "title": "Size"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Page_DoctorRead_"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/doctors/{doctor_id}": {
+    "delete": {
+    "tags": [
+    "Doctors"
+    ],
+    "summary": "Doctorcontroller.Delete Doctor",
+    "operationId": "DoctorController_delete_doctor_api_v1_doctors__doctor_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "doctor_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    }
+    }
+    ],
+    "responses": {
+    "204": {
+    "description": "Successful response"
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Doctors"
+    ],
+    "summary": "Doctorcontroller.Get Doctor",
+    "operationId": "DoctorController_get_doctor_api_v1_doctors__doctor_id__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "doctor_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "patch": {
+    "tags": [
+    "Doctors"
+    ],
+    "summary": "Doctorcontroller.Update Doctor",
+    "operationId": "DoctorController_update_doctor_api_v1_doctors__doctor_id__patch",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "doctor_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorUpdate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DoctorDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/roles/": {
+    "post": {
+    "tags": [
+    "Roles",
+    "RBAC"
+    ],
+    "summary": "Rolecontroller.Create Role",
+    "operationId": "RoleController_create_role_api_v1_roles__post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/RoleCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/RoleRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Roles",
+    "RBAC"
+    ],
+    "summary": "Rolecontroller.List Roles",
+    "operationId": "RoleController_list_roles_api_v1_roles__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "default": 1,
+    "title": "Page"
+    }
+    },
+    {
+    "name": "size",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "maximum": 100,
+    "minimum": 1,
+    "default": 50,
+    "title": "Size"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Page_RoleRead_"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/roles/{role_id}": {
+    "delete": {
+    "tags": [
+    "Roles",
+    "RBAC"
+    ],
+    "summary": "Rolecontroller.Delete Role",
+    "operationId": "RoleController_delete_role_api_v1_roles__role_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "role_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Role Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Roles",
+    "RBAC"
+    ],
+    "summary": "Rolecontroller.Get Role",
+    "operationId": "RoleController_get_role_api_v1_roles__role_id__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "role_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Role Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/RoleRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "patch": {
+    "tags": [
+    "Roles",
+    "RBAC"
+    ],
+    "summary": "Rolecontroller.Patch Role",
+    "operationId": "RoleController_patch_role_api_v1_roles__role_id__patch",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "role_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Role Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/RoleUpdate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/RoleRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/permissions/": {
+    "post": {
+    "tags": [
+    "Permissions",
+    "RBAC"
+    ],
+    "summary": "Permissioncontroller.Create Permission",
+    "operationId": "PermissionController_create_permission_api_v1_permissions__post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PermissionCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PermissionRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Permissions",
+    "RBAC"
+    ],
+    "summary": "Permissioncontroller.List Permissions",
+    "operationId": "PermissionController_list_permissions_api_v1_permissions__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "default": 1,
+    "title": "Page"
+    }
+    },
+    {
+    "name": "size",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "maximum": 100,
+    "minimum": 1,
+    "default": 50,
+    "title": "Size"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Page_PermissionRead_"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/permissions/{permission_id}": {
+    "delete": {
+    "tags": [
+    "Permissions",
+    "RBAC"
+    ],
+    "summary": "Permissioncontroller.Delete Permission",
+    "operationId": "PermissionController_delete_permission_api_v1_permissions__permission_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "permission_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Permission Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Permissions",
+    "RBAC"
+    ],
+    "summary": "Permissioncontroller.Get Permission",
+    "operationId": "PermissionController_get_permission_api_v1_permissions__permission_id__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "permission_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Permission Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PermissionRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "patch": {
+    "tags": [
+    "Permissions",
+    "RBAC"
+    ],
+    "summary": "Permissioncontroller.Patch Permission",
+    "operationId": "PermissionController_patch_permission_api_v1_permissions__permission_id__patch",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "permission_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Permission Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PermissionUpdate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PermissionRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/departments/": {
+    "post": {
+    "tags": [
+    "Departments"
+    ],
+    "summary": "Departmentcontroller.Create Department",
+    "operationId": "DepartmentController_create_department_api_v1_departments__post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartmentCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartmentRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Departments"
+    ],
+    "summary": "Departmentcontroller.List Departments",
+    "operationId": "DepartmentController_list_departments_api_v1_departments__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "default": 1,
+    "title": "Page"
+    }
+    },
+    {
+    "name": "size",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "type": "integer",
+    "maximum": 100,
+    "minimum": 1,
+    "default": 50,
+    "title": "Size"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Page_DepartmentRead_"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/departments/{department_id}": {
+    "delete": {
+    "tags": [
+    "Departments"
+    ],
+    "summary": "Departmentcontroller.Delete Department",
+    "operationId": "DepartmentController_delete_department_api_v1_departments__department_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "department_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Department Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Departments"
+    ],
+    "summary": "Departmentcontroller.Get Department",
+    "operationId": "DepartmentController_get_department_api_v1_departments__department_id__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "department_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Department Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartmentDetailRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "patch": {
+    "tags": [
+    "Departments"
+    ],
+    "summary": "Departmentcontroller.Patch Department",
+    "operationId": "DepartmentController_patch_department_api_v1_departments__department_id__patch",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "department_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "title": "Department Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartmentUpdate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartmentRead"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/v1/files/upload": {
+    "post": {
+    "tags": [
+    "files"
+    ],
+    "summary": "Upload File",
+    "operationId": "upload_file_api_v1_files_upload_post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "file_path",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "title": "File Path"
+    }
+    },
+    {
+    "name": "file_name",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "title": "File Name"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "multipart/form-data": {
+    "schema": {
+    "$ref": "#/components/schemas/Body_upload_file_api_v1_files_upload_post"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FileResponse"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/api/health": {
+    "get": {
+    "summary": "Get Status",
+    "operationId": "get_status_api_health_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "components": {
+    "schemas": {
+    "Body_AuthController_login_api_v1_auth_login_post": {
+    "properties": {
+    "grant_type": {
+    "anyOf": [
+    {
+    "type": "string",
+    "pattern": "^password$"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Grant Type"
+    },
+    "username": {
+    "type": "string",
+    "title": "Username"
+    },
+    "password": {
+    "type": "string",
+    "title": "Password"
+    },
+    "scope": {
+    "type": "string",
+    "title": "Scope",
+    "default": ""
+    },
+    "client_id": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Client Id"
+    },
+    "client_secret": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Client Secret"
+    }
+    },
+    "type": "object",
+    "required": [
+    "username",
+    "password"
+    ],
+    "title": "Body_AuthController_login_api_v1_auth_login_post"
+    },
+    "Body_upload_file_api_v1_files_upload_post": {
+    "properties": {
+    "file": {
+    "type": "string",
+    "format": "binary",
+    "title": "File"
+    }
+    },
+    "type": "object",
+    "required": [
+    "file"
+    ],
+    "title": "Body_upload_file_api_v1_files_upload_post"
+    },
+    "DepartmentCreate": {
+    "properties": {
+    "name": {
+    "type": "string",
+    "title": "Name"
+    },
+    "description": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Description"
+    },
+    "contact_phone": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Contact Phone"
+    }
+    },
+    "type": "object",
+    "required": [
+    "name"
+    ],
+    "title": "DepartmentCreate"
+    },
+    "DepartmentDetailRead": {
+    "properties": {
+    "department_id": {
+    "type": "integer",
+    "title": "Department Id"
+    },
+    "name": {
+    "type": "string",
+    "title": "Name"
+    },
+    "description": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Description"
+    },
+    "contact_phone": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Contact Phone"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    },
+    "doctors": {
+    "items": {
+    "$ref": "#/components/schemas/DoctorRead"
+    },
+    "type": "array",
+    "title": "Doctors",
+    "default": []
+    }
+    },
+    "type": "object",
+    "required": [
+    "department_id",
+    "name",
+    "created_at",
+    "updated_at"
+    ],
+    "title": "DepartmentDetailRead"
+    },
+    "DepartmentRead": {
+    "properties": {
+    "department_id": {
+    "type": "integer",
+    "title": "Department Id"
+    },
+    "name": {
+    "type": "string",
+    "title": "Name"
+    },
+    "description": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Description"
+    },
+    "contact_phone": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Contact Phone"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    }
+    },
+    "type": "object",
+    "required": [
+    "department_id",
+    "name",
+    "created_at",
+    "updated_at"
+    ],
+    "title": "DepartmentRead"
+    },
+    "DepartmentUpdate": {
+    "properties": {
+    "name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Name"
+    },
+    "description": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Description"
+    },
+    "contact_phone": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Contact Phone"
+    }
+    },
+    "type": "object",
+    "title": "DepartmentUpdate"
+    },
+    "DoctorCreate": {
+    "properties": {
+    "first_name": {
+    "type": "string",
+    "title": "First Name"
+    },
+    "last_name": {
+    "type": "string",
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "type": "string",
+    "title": "Middle Name"
+    },
+    "email": {
+    "type": "string",
+    "title": "Email"
+    },
+    "phone_number": {
+    "type": "string",
+    "title": "Phone Number"
+    },
+    "birth_data": {
+    "type": "string",
+    "format": "date",
+    "title": "Birth Data"
+    },
+    "gender": {
+    "$ref": "#/components/schemas/Gender"
+    },
+    "specialization": {
+    "type": "string",
+    "title": "Specialization"
+    },
+    "department_id": {
+    "anyOf": [
+    {
+    "type": "integer"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Department Id"
+    },
+    "role_id": {
+    "anyOf": [
+    {
+    "type": "integer"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Role Id"
+    },
+    "password": {
+    "type": "string",
+    "title": "Password"
+    }
+    },
+    "type": "object",
+    "required": [
+    "first_name",
+    "last_name",
+    "middle_name",
+    "email",
+    "phone_number",
+    "birth_data",
+    "gender",
+    "specialization",
+    "password"
+    ],
+    "title": "DoctorCreate"
+    },
+    "DoctorDetailRead": {
+    "properties": {
+    "doctor_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    },
+    "first_name": {
+    "type": "string",
+    "title": "First Name"
+    },
+    "last_name": {
+    "type": "string",
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "type": "string",
+    "title": "Middle Name"
+    },
+    "email": {
+    "type": "string",
+    "title": "Email"
+    },
+    "phone_number": {
+    "type": "string",
+    "title": "Phone Number"
+    },
+    "birth_data": {
+    "type": "string",
+    "format": "date",
+    "title": "Birth Data"
+    },
+    "is_active": {
+    "type": "boolean",
+    "title": "Is Active"
+    },
+    "gender": {
+    "$ref": "#/components/schemas/Gender"
+    },
+    "specialization": {
+    "type": "string",
+    "title": "Specialization"
+    },
+    "department": {
+    "anyOf": [
+    {
+    "$ref": "#/components/schemas/DepartmentRead"
+    },
+    {
+    "type": "null"
+    }
+    ]
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    },
+    "role": {
+    "$ref": "#/components/schemas/RoleRead"
+    },
+    "patients": {
+    "items": {
+    "$ref": "#/components/schemas/PatientRead"
+    },
+    "type": "array",
+    "title": "Patients"
+    }
+    },
+    "type": "object",
+    "required": [
+    "doctor_id",
+    "first_name",
+    "last_name",
+    "middle_name",
+    "email",
+    "phone_number",
+    "birth_data",
+    "is_active",
+    "gender",
+    "specialization",
+    "created_at",
+    "updated_at",
+    "role",
+    "patients"
+    ],
+    "title": "DoctorDetailRead"
+    },
+    "DoctorRead": {
+    "properties": {
+    "doctor_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    },
+    "first_name": {
+    "type": "string",
+    "title": "First Name"
+    },
+    "last_name": {
+    "type": "string",
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "type": "string",
+    "title": "Middle Name"
+    },
+    "email": {
+    "type": "string",
+    "title": "Email"
+    },
+    "phone_number": {
+    "type": "string",
+    "title": "Phone Number"
+    },
+    "birth_data": {
+    "type": "string",
+    "format": "date",
+    "title": "Birth Data"
+    },
+    "is_active": {
+    "type": "boolean",
+    "title": "Is Active"
+    },
+    "gender": {
+    "$ref": "#/components/schemas/Gender"
+    },
+    "specialization": {
+    "type": "string",
+    "title": "Specialization"
+    },
+    "department": {
+    "anyOf": [
+    {
+    "$ref": "#/components/schemas/DepartmentRead"
+    },
+    {
+    "type": "null"
+    }
+    ]
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    }
+    },
+    "type": "object",
+    "required": [
+    "doctor_id",
+    "first_name",
+    "last_name",
+    "middle_name",
+    "email",
+    "phone_number",
+    "birth_data",
+    "is_active",
+    "gender",
+    "specialization",
+    "created_at",
+    "updated_at"
+    ],
+    "title": "DoctorRead"
+    },
+    "DoctorUpdate": {
+    "properties": {
+    "first_name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "First Name"
+    },
+    "last_name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Middle Name"
+    },
+    "email": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Email"
+    },
+    "phone_number": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Phone Number"
+    },
+    "birth_data": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "date"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Birth Data"
+    },
+    "gender": {
+    "anyOf": [
+    {
+    "$ref": "#/components/schemas/Gender"
+    },
+    {
+    "type": "null"
+    }
+    ]
+    },
+    "specialization": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Specialization"
+    },
+    "department_id": {
+    "anyOf": [
+    {
+    "type": "integer"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Department Id"
+    },
+    "role_id": {
+    "anyOf": [
+    {
+    "type": "integer"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Role Id"
+    },
+    "password": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Password"
+    }
+    },
+    "type": "object",
+    "title": "DoctorUpdate"
+    },
+    "FileResponse": {
+    "properties": {
+    "file_path": {
+    "type": "string",
+    "title": "File Path"
+    },
+    "file_name": {
+    "type": "string",
+    "title": "File Name"
+    },
+    "duration": {
+    "anyOf": [
+    {
+    "type": "integer"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Duration"
+    },
+    "size": {
+    "type": "integer",
+    "title": "Size"
+    }
+    },
+    "type": "object",
+    "required": [
+    "file_path",
+    "file_name",
+    "size"
+    ],
+    "title": "FileResponse"
+    },
+    "Gender": {
+    "type": "string",
+    "enum": [
+    "male",
+    "female"
+    ],
+    "title": "Gender"
+    },
+    "HTTPValidationError": {
+    "properties": {
+    "detail": {
+    "items": {
+    "$ref": "#/components/schemas/ValidationError"
+    },
+    "type": "array",
+    "title": "Detail"
+    }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+    },
+    "LoginResponse": {
+    "properties": {
+    "access_token": {
+    "type": "string",
+    "title": "Access Token"
+    },
+    "token_type": {
+    "type": "string",
+    "title": "Token Type",
+    "default": "bearer"
+    }
+    },
+    "type": "object",
+    "required": [
+    "access_token"
+    ],
+    "title": "LoginResponse"
+    },
+    "MedRecordCreate": {
+    "properties": {
+    "patient_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    },
+    "doctor_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    },
+    "department_id": {
+    "type": "integer",
+    "title": "Department Id"
+    },
+    "examination_date": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Examination Date"
+    }
+    },
+    "type": "object",
+    "required": [
+    "patient_id",
+    "doctor_id",
+    "department_id",
+    "examination_date"
+    ],
+    "title": "MedRecordCreate"
+    },
+    "MedRecordDetailRead": {
+    "properties": {
+    "patient_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    },
+    "doctor_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    },
+    "department_id": {
+    "type": "integer",
+    "title": "Department Id"
+    },
+    "examination_date": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Examination Date"
+    },
+    "record_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    },
+    "patient": {
+    "$ref": "#/components/schemas/PatientRead"
+    },
+    "doctor": {
+    "$ref": "#/components/schemas/DoctorRead"
+    },
+    "department": {
+    "$ref": "#/components/schemas/DepartmentRead"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    },
+    "transcriptions": {
+    "items": {
+    "$ref": "#/components/schemas/TranscriptionRead"
+    },
+    "type": "array",
+    "title": "Transcriptions",
+    "default": []
+    }
+    },
+    "type": "object",
+    "required": [
+    "patient_id",
+    "doctor_id",
+    "department_id",
+    "examination_date",
+    "record_id",
+    "patient",
+    "doctor",
+    "department",
+    "created_at",
+    "updated_at"
+    ],
+    "title": "MedRecordDetailRead"
+    },
+    "MedRecordRead": {
+    "properties": {
+    "patient_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    },
+    "doctor_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Doctor Id"
+    },
+    "department_id": {
+    "type": "integer",
+    "title": "Department Id"
+    },
+    "examination_date": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Examination Date"
+    },
+    "record_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    },
+    "patient": {
+    "$ref": "#/components/schemas/PatientRead"
+    },
+    "doctor": {
+    "$ref": "#/components/schemas/DoctorRead"
+    },
+    "department": {
+    "$ref": "#/components/schemas/DepartmentRead"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    }
+    },
+    "type": "object",
+    "required": [
+    "patient_id",
+    "doctor_id",
+    "department_id",
+    "examination_date",
+    "record_id",
+    "patient",
+    "doctor",
+    "department",
+    "created_at",
+    "updated_at"
+    ],
+    "title": "MedRecordRead"
+    },
+    "MedRecordUpdate": {
+    "properties": {
+    "patient_id": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "uuid"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Patient Id"
+    },
+    "department_id": {
+    "anyOf": [
+    {
+    "type": "integer"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Department Id"
+    },
+    "examination_date": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "date-time"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Examination Date"
+    }
+    },
+    "type": "object",
+    "title": "MedRecordUpdate"
+    },
+    "Page_DepartmentRead_": {
+    "properties": {
+    "items": {
+    "items": {
+    "$ref": "#/components/schemas/DepartmentRead"
+    },
+    "type": "array",
+    "title": "Items"
+    },
+    "total": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Total"
+    },
+    "page": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Page"
+    },
+    "size": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Size"
+    },
+    "pages": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Pages"
+    }
+    },
+    "type": "object",
+    "required": [
+    "items",
+    "total",
+    "page",
+    "size"
+    ],
+    "title": "Page[DepartmentRead]"
+    },
+    "Page_DoctorRead_": {
+    "properties": {
+    "items": {
+    "items": {
+    "$ref": "#/components/schemas/DoctorRead"
+    },
+    "type": "array",
+    "title": "Items"
+    },
+    "total": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Total"
+    },
+    "page": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Page"
+    },
+    "size": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Size"
+    },
+    "pages": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Pages"
+    }
+    },
+    "type": "object",
+    "required": [
+    "items",
+    "total",
+    "page",
+    "size"
+    ],
+    "title": "Page[DoctorRead]"
+    },
+    "Page_MedRecordRead_": {
+    "properties": {
+    "items": {
+    "items": {
+    "$ref": "#/components/schemas/MedRecordRead"
+    },
+    "type": "array",
+    "title": "Items"
+    },
+    "total": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Total"
+    },
+    "page": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Page"
+    },
+    "size": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Size"
+    },
+    "pages": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Pages"
+    }
+    },
+    "type": "object",
+    "required": [
+    "items",
+    "total",
+    "page",
+    "size"
+    ],
+    "title": "Page[MedRecordRead]"
+    },
+    "Page_PatientRead_": {
+    "properties": {
+    "items": {
+    "items": {
+    "$ref": "#/components/schemas/PatientRead"
+    },
+    "type": "array",
+    "title": "Items"
+    },
+    "total": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Total"
+    },
+    "page": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Page"
+    },
+    "size": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Size"
+    },
+    "pages": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Pages"
+    }
+    },
+    "type": "object",
+    "required": [
+    "items",
+    "total",
+    "page",
+    "size"
+    ],
+    "title": "Page[PatientRead]"
+    },
+    "Page_PermissionRead_": {
+    "properties": {
+    "items": {
+    "items": {
+    "$ref": "#/components/schemas/PermissionRead"
+    },
+    "type": "array",
+    "title": "Items"
+    },
+    "total": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Total"
+    },
+    "page": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Page"
+    },
+    "size": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Size"
+    },
+    "pages": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Pages"
+    }
+    },
+    "type": "object",
+    "required": [
+    "items",
+    "total",
+    "page",
+    "size"
+    ],
+    "title": "Page[PermissionRead]"
+    },
+    "Page_RoleRead_": {
+    "properties": {
+    "items": {
+    "items": {
+    "$ref": "#/components/schemas/RoleRead"
+    },
+    "type": "array",
+    "title": "Items"
+    },
+    "total": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Total"
+    },
+    "page": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Page"
+    },
+    "size": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Size"
+    },
+    "pages": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Pages"
+    }
+    },
+    "type": "object",
+    "required": [
+    "items",
+    "total",
+    "page",
+    "size"
+    ],
+    "title": "Page[RoleRead]"
+    },
+    "Page_TranscriptionRead_": {
+    "properties": {
+    "items": {
+    "items": {
+    "$ref": "#/components/schemas/TranscriptionRead"
+    },
+    "type": "array",
+    "title": "Items"
+    },
+    "total": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Total"
+    },
+    "page": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Page"
+    },
+    "size": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 1
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Size"
+    },
+    "pages": {
+    "anyOf": [
+    {
+    "type": "integer",
+    "minimum": 0
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Pages"
+    }
+    },
+    "type": "object",
+    "required": [
+    "items",
+    "total",
+    "page",
+    "size"
+    ],
+    "title": "Page[TranscriptionRead]"
+    },
+    "PatientCreate": {
+    "properties": {
+    "first_name": {
+    "type": "string",
+    "title": "First Name"
+    },
+    "last_name": {
+    "type": "string",
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "type": "string",
+    "title": "Middle Name"
+    },
+    "phone_number": {
+    "type": "string",
+    "title": "Phone Number"
+    },
+    "email": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Email"
+    },
+    "address": {
+    "type": "string",
+    "title": "Address"
+    },
+    "birth_data": {
+    "type": "string",
+    "format": "date",
+    "title": "Birth Data"
+    },
+    "gender": {
+    "$ref": "#/components/schemas/Gender"
+    }
+    },
+    "type": "object",
+    "required": [
+    "first_name",
+    "last_name",
+    "middle_name",
+    "phone_number",
+    "address",
+    "birth_data",
+    "gender"
+    ],
+    "title": "PatientCreate"
+    },
+    "PatientDetailRead": {
+    "properties": {
+    "patient_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    },
+    "first_name": {
+    "type": "string",
+    "title": "First Name"
+    },
+    "last_name": {
+    "type": "string",
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "type": "string",
+    "title": "Middle Name"
+    },
+    "phone_number": {
+    "type": "string",
+    "title": "Phone Number"
+    },
+    "email": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Email"
+    },
+    "birth_data": {
+    "type": "string",
+    "format": "date",
+    "title": "Birth Data"
+    },
+    "is_active": {
+    "type": "boolean",
+    "title": "Is Active"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    },
+    "address": {
+    "type": "string",
+    "title": "Address"
+    },
+    "gender": {
+    "$ref": "#/components/schemas/Gender"
+    }
+    },
+    "type": "object",
+    "required": [
+    "patient_id",
+    "first_name",
+    "last_name",
+    "middle_name",
+    "phone_number",
+    "email",
+    "birth_data",
+    "is_active",
+    "created_at",
+    "updated_at",
+    "address",
+    "gender"
+    ],
+    "title": "PatientDetailRead"
+    },
+    "PatientRead": {
+    "properties": {
+    "patient_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Patient Id"
+    },
+    "first_name": {
+    "type": "string",
+    "title": "First Name"
+    },
+    "last_name": {
+    "type": "string",
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "type": "string",
+    "title": "Middle Name"
+    },
+    "phone_number": {
+    "type": "string",
+    "title": "Phone Number"
+    },
+    "email": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Email"
+    },
+    "birth_data": {
+    "type": "string",
+    "format": "date",
+    "title": "Birth Data"
+    },
+    "is_active": {
+    "type": "boolean",
+    "title": "Is Active"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    }
+    },
+    "type": "object",
+    "required": [
+    "patient_id",
+    "first_name",
+    "last_name",
+    "middle_name",
+    "phone_number",
+    "email",
+    "birth_data",
+    "is_active",
+    "created_at",
+    "updated_at"
+    ],
+    "title": "PatientRead"
+    },
+    "PatientUpdate": {
+    "properties": {
+    "first_name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "First Name"
+    },
+    "last_name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Last Name"
+    },
+    "middle_name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Middle Name"
+    },
+    "phone_number": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Phone Number"
+    },
+    "email": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Email"
+    },
+    "address": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Address"
+    },
+    "birth_data": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "date"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Birth Data"
+    },
+    "gender": {
+    "anyOf": [
+    {
+    "$ref": "#/components/schemas/Gender"
+    },
+    {
+    "type": "null"
+    }
+    ]
+    }
+    },
+    "type": "object",
+    "title": "PatientUpdate"
+    },
+    "PermissionAction": {
+    "type": "string",
+    "enum": [
+    "create",
+    "retrieve",
+    "update",
+    "delete"
+    ],
+    "title": "PermissionAction"
+    },
+    "PermissionCreate": {
+    "properties": {
+    "resource": {
+    "type": "string",
+    "title": "Resource"
+    },
+    "action": {
+    "anyOf": [
+    {
+    "$ref": "#/components/schemas/PermissionAction"
+    },
+    {
+    "type": "string"
+    }
+    ],
+    "title": "Action"
+    }
+    },
+    "type": "object",
+    "required": [
+    "resource",
+    "action"
+    ],
+    "title": "PermissionCreate"
+    },
+    "PermissionRead": {
+    "properties": {
+    "permission_id": {
+    "type": "integer",
+    "title": "Permission Id"
+    },
+    "resource": {
+    "type": "string",
+    "title": "Resource"
+    },
+    "action": {
+    "anyOf": [
+    {
+    "$ref": "#/components/schemas/PermissionAction"
+    },
+    {
+    "type": "string"
+    }
+    ],
+    "title": "Action"
+    }
+    },
+    "type": "object",
+    "required": [
+    "permission_id",
+    "resource",
+    "action"
+    ],
+    "title": "PermissionRead"
+    },
+    "PermissionUpdate": {
+    "properties": {
+    "resource": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Resource"
+    },
+    "action": {
+    "anyOf": [
+    {
+    "$ref": "#/components/schemas/PermissionAction"
+    },
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Action"
+    }
+    },
+    "type": "object",
+    "title": "PermissionUpdate"
+    },
+    "RoleCreate": {
+    "properties": {
+    "name": {
+    "type": "string",
+    "title": "Name"
+    },
+    "permissions": {
+    "anyOf": [
+    {
+    "items": {
+    "$ref": "#/components/schemas/PermissionCreate"
+    },
+    "type": "array"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Permissions"
+    }
+    },
+    "type": "object",
+    "required": [
+    "name"
+    ],
+    "title": "RoleCreate"
+    },
+    "RoleRead": {
+    "properties": {
+    "role_id": {
+    "type": "integer",
+    "title": "Role Id"
+    },
+    "name": {
+    "type": "string",
+    "title": "Name"
+    },
+    "permissions": {
+    "items": {
+    "$ref": "#/components/schemas/PermissionRead"
+    },
+    "type": "array",
+    "title": "Permissions",
+    "default": []
+    }
+    },
+    "type": "object",
+    "required": [
+    "role_id",
+    "name"
+    ],
+    "title": "RoleRead"
+    },
+    "RoleUpdate": {
+    "properties": {
+    "name": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Name"
+    }
+    },
+    "type": "object",
+    "title": "RoleUpdate"
+    },
+    "TranscriptionCreate": {
+    "properties": {
+    "record_id": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "uuid"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Record Id"
+    },
+    "audio_url": {
+    "type": "string",
+    "title": "Audio Url"
+    },
+    "audio_duration": {
+    "type": "integer",
+    "title": "Audio Duration",
+    "default": 0
+    },
+    "transcription_text": {
+    "type": "string",
+    "title": "Transcription Text"
+    },
+    "is_processed": {
+    "type": "boolean",
+    "title": "Is Processed",
+    "default": false
+    },
+    "asr_model": {
+    "type": "string",
+    "title": "Asr Model",
+    "default": "whisper"
+    },
+    "asr_config": {
+    "additionalProperties": true,
+    "type": "object",
+    "title": "Asr Config",
+    "default": {}
+    },
+    "language": {
+    "type": "string",
+    "title": "Language",
+    "default": "uk"
+    }
+    },
+    "type": "object",
+    "required": [
+    "audio_url",
+    "transcription_text"
+    ],
+    "title": "TranscriptionCreate"
+    },
+    "TranscriptionDetailRead": {
+    "properties": {
+    "record_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    },
+    "transcription_id": {
+    "type": "integer",
+    "title": "Transcription Id"
+    },
+    "audio_url": {
+    "type": "string",
+    "title": "Audio Url"
+    },
+    "audio_duration": {
+    "type": "integer",
+    "title": "Audio Duration"
+    },
+    "transcription_text": {
+    "type": "string",
+    "title": "Transcription Text"
+    },
+    "is_processed": {
+    "type": "boolean",
+    "title": "Is Processed"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    },
+    "asr_model": {
+    "type": "string",
+    "title": "Asr Model"
+    },
+    "asr_config": {
+    "additionalProperties": true,
+    "type": "object",
+    "title": "Asr Config"
+    },
+    "language": {
+    "type": "string",
+    "title": "Language"
+    }
+    },
+    "type": "object",
+    "required": [
+    "record_id",
+    "transcription_id",
+    "audio_url",
+    "audio_duration",
+    "transcription_text",
+    "is_processed",
+    "created_at",
+    "updated_at",
+    "asr_model",
+    "asr_config",
+    "language"
+    ],
+    "title": "TranscriptionDetailRead"
+    },
+    "TranscriptionRead": {
+    "properties": {
+    "record_id": {
+    "type": "string",
+    "format": "uuid",
+    "title": "Record Id"
+    },
+    "transcription_id": {
+    "type": "integer",
+    "title": "Transcription Id"
+    },
+    "audio_url": {
+    "type": "string",
+    "title": "Audio Url"
+    },
+    "audio_duration": {
+    "type": "integer",
+    "title": "Audio Duration"
+    },
+    "transcription_text": {
+    "type": "string",
+    "title": "Transcription Text"
+    },
+    "is_processed": {
+    "type": "boolean",
+    "title": "Is Processed"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    },
+    "updated_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Updated At"
+    }
+    },
+    "type": "object",
+    "required": [
+    "record_id",
+    "transcription_id",
+    "audio_url",
+    "audio_duration",
+    "transcription_text",
+    "is_processed",
+    "created_at",
+    "updated_at"
+    ],
+    "title": "TranscriptionRead"
+    },
+    "ValidationError": {
+    "properties": {
+    "loc": {
+    "items": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "integer"
+    }
+    ]
+    },
+    "type": "array",
+    "title": "Location"
+    },
+    "msg": {
+    "type": "string",
+    "title": "Message"
+    },
+    "type": {
+    "type": "string",
+    "title": "Error Type"
+    }
+    },
+    "type": "object",
+    "required": [
+    "loc",
+    "msg",
+    "type"
+    ],
+    "title": "ValidationError"
+    }
+    },
+    "securitySchemes": {
+    "OAuth2PasswordBearer": {
+    "type": "oauth2",
+    "flows": {
+    "password": {
+    "scopes": {},
+    "tokenUrl": "/api/v1/auth/login"
+    }
+    }
+    }
+    }
+    }
+    }
