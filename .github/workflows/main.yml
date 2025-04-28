@@ -68,6 +68,7 @@ jobs:
       - name: Install frontend dependencies with Yarn
         run: yarn install
         working-directory: ./gui
+        
 
       - name: Build Tauri app
         run: yarn tauri build
