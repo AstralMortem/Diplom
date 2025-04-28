@@ -43,7 +43,7 @@ jobs:
       - name: Build Python executable with PyInstaller
         run: |
           poetry run pip install pyinstaller
-          poetry run pyinstaller ./backend/MedVoice-Server-CLI.spec
+          poetry run pyinstaller server.spec
         working-directory: ./backend
 
       - name: Set up Node.js
@@ -77,8 +77,12 @@ jobs:
         run: |
           mkdir -p release/
           
-          # Copy Python backend executable
-          cp ../backend/dist/backend${{ runner.os == 'Windows' && '.exe' || '' }} release/
+          # Copy Python backend executable - assuming output is in dist folder
+          if [ "${{ matrix.platform }}" == "windows" ]; then
+            cp ../backend/dist/server.exe release/
+          else
+            cp ../backend/dist/server release/
+          fi
           
           # Determine the correct Tauri output path based on platform
           if [ "${{ matrix.platform }}" == "windows" ]; then
@@ -108,12 +112,15 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v3
         with:
-          path: artifacts
+          path: ./artifacts
+
+      - name: List downloaded artifacts
+        run: find ./artifacts -type f | sort
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: artifacts/**/*
+          files: ./artifacts/**/*
           draft: false
           prerelease: false
           generate_release_notes: true
