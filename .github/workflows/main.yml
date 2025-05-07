@@ -24,18 +24,19 @@ jobs:
 
       - name: Configure Poetry
         run: |
-          poetry config virtualenvs.create false
+          cd backend
           poetry install
 
       - name: Build CLI with PyInstaller
         run: |
-          poetry run pyinstaller backend/server.spec
+          cd backend
+          poetry run pyinstaller cli.spec
 
       - name: Upload Server CLI Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: server-cli
-          path: dist/  # Adjust if binary is in a subfolder
+          name: backend-cli
+          path: backend/dist/  # Adjust if binary is in a subfolder
 
   build-tauri-windows:
     name: Build Tauri Windows Installer
@@ -47,7 +48,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
@@ -64,13 +65,12 @@ jobs:
       - name: Build Tauri Windows Installer
         run: |
           cd gui
-          yarn build
           yarn tauri build
 
       - name: Upload Tauri Installer Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: tauri-msi
+          name: gui-msi
           path: |
             gui/src-tauri/target/release/bundle/msi/*.msi
 
@@ -85,20 +85,21 @@ jobs:
       - name: Download Server CLI
         uses: actions/download-artifact@v4
         with:
-          name: server-cli
-          path: release/server
+          name: backend-cli
+          path: release/backend
+          
 
       - name: Download Tauri MSI
         uses: actions/download-artifact@v4
         with:
-          name: tauri-msi
-          path: release/tauri
+          name: gui-msi
+          path: release/gui
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            release/server/**
-            release/tauri/*.msi
+            release/backend/**
+            release/gui/*.msi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
