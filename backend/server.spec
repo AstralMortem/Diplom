@@ -22,7 +22,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='MedVoice-Server-CLI',
+    name='medvoice-server-cli',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -41,5 +41,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='MedVoice-Server-CLI',
+    name='medvoice-server-cli',
 )
