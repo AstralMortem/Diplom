@@ -60,7 +60,8 @@ jobs:
       - name: Install Tauri + Nuxt dependencies
         run: |
           cd gui
-          yarn install --frozen-lockfile
+          yarn install 
+      
 
       - name: Build Tauri Windows Installer
         run: |

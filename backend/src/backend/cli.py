@@ -26,13 +26,10 @@ def migrate():
 
 @app.command()
 def runserver(host: str = "0.0.0.0", port: int = 8000):
-    asgi_path = config.BASE_DIR.joinpath("core").joinpath("asgi.py")
-    module_path = asgi_path.relative_to(Path.cwd()).as_posix().replace('/', ".").replace('.py', ':app').split('.',1)[1]
-    
-    print(f"Start ASGI module: {module_path}")
+    from backend.core.asgi import app
     zeroconf, service_info = register_mdns_service(port)
     try:
-        uvicorn.run(module_path, host=host, port=port, reload=config.DEBUG, workers=1)
+        uvicorn.run(app, host=host, port=port, workers=1)
     finally:
         zeroconf.unregister_service(service_info)
         zeroconf.close()
