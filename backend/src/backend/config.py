@@ -51,7 +51,7 @@ class BackendConfig(BaseSettings):
     DATABASE_URL: AnyUrl = Field(default_factory=get_database_url)
 
 
-    JWT_SECRET_KEY: str = "secret"
+    JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRATION_TIME: int = 60 * 60 * 12  # 24 hours
     JWT_AUTH_AUDIENCE: list[str] = ["med-voice:auth"]
@@ -73,7 +73,7 @@ class BackendConfig(BaseSettings):
     ORIGINS: list[str] = get_default_origin()
     
 
-config = BackendConfig()
+config = BackendConfig(_env_file="config.env")
 
 
 

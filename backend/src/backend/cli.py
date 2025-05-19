@@ -14,6 +14,7 @@ from backend.schemas.auth import Gender
 from backend.schemas.users import DoctorCreate
 from backend.services.doctors import get_doctor_service
 
+
 app = typer.Typer()
 
 
@@ -33,6 +34,12 @@ def runserver(host: str = "0.0.0.0", port: int = 8000):
     finally:
         zeroconf.unregister_service(service_info)
         zeroconf.close()
+
+@app.command()
+def show_config():
+    from backend.config import config
+    from rich import print
+    print(config.model_dump())
 
 
 

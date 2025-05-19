@@ -27,6 +27,11 @@ jobs:
           cd backend
           poetry install
 
+      - name: "Test Backend"
+        run: | 
+          cd backend
+          poetry run pytest
+
       - name: Build CLI with PyInstaller
         run: |
           cd backend
@@ -36,7 +41,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: backend-cli
-          path: backend/dist/  # Adjust if binary is in a subfolder
+          path: |
+            backend/dist/
+            backend/config.env
 
   build-tauri-windows:
     name: Build Tauri Windows Installer

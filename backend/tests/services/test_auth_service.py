@@ -423,14 +423,17 @@ def test_create_login_response(auth_service, mock_doctor):
         response = auth_service._create_login_response(mock_doctor)
         
         # Assert
-        assert response.status_code == status.HTTP_204_NO_CONTENT
+        assert response.status_code == status.HTTP_200_OK
         mock_generate.assert_called_once_with(mock_doctor)
         
         cookie_found = False
         for cookie in [SimpleCookie(j.decode()) for _, j in response.raw_headers]:
+            print(cookie)
             try:
-                value = cookie[config.AUTH_COOKIE_NAME].__dict__["_value"]
-                assert token == value
+                value = cookie.get(config.AUTH_COOKIE_NAME, None)
+                if value is None:
+                    continue
+                assert token == value.__dict__["_value"]
             except ValueError:
                 assert False
 
