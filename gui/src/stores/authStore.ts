@@ -51,6 +51,7 @@ export const useAuthStore = defineStore('auth', {
             }catch(error){
                 this.isPending = false
                 backendError(error)
+                throw error
             }
         },
         async logout(){
@@ -74,14 +75,18 @@ export const useAuthStore = defineStore('auth', {
             }
         },
         hasAccess(action:string, resouce?: string | undefined ){
-            if(resouce){
-                return this.user.role.permissions.some(obj => {
-                    return Object.entries({resource: resouce, action: action}).every(([key, value]) => {
-                        return obj[key] === value;
+            if(this.isAuthenticated){
+                if(resouce){
+                    return this.user.role.permissions.some(obj => {
+                        return Object.entries({resource: resouce, action: action}).every(([key, value]) => {
+                            return obj[key] === value;
+                        })
                     })
-                })
+                }
+                return true
             }
-            return true
+            return false
+            
             
         }
     },

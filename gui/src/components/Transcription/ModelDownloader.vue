@@ -17,6 +17,26 @@ const models = ref([{
   label: 'Tiny Model',
   value: 'ggml-tiny.bin',
   isDownloaded: false
+},{
+  label: 'Medium Model',
+  value: 'ggml-medium.bin',
+  isDownloaded: false
+},{
+  label: 'Large Model (V1)',
+  value: 'ggml-large-v1.bin',
+  isDownloaded: false
+},{
+  label: 'Large Model (V2)',
+  value: 'ggml-large-v2.bin',
+  isDownloaded: false
+},{
+  label: 'Large Model (V3)',
+  value: 'ggml-large-v3.bin',
+  isDownloaded: false
+},{
+  label: 'Large Model (V3 Turbo)',
+  value: "ggml-large-v3-turbo.bin",
+  isDownloaded: false
 }])
 
 const isDownloading = ref(false)

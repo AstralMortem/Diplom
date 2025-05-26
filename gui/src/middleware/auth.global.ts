@@ -10,7 +10,16 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
 
     if (token.value && !authStore.isAuthenticated) {
-        await authStore.fetchMe();
+        try{
+            await authStore.fetchMe();
+        }catch(error){
+            if(error.statusCode == 401){
+                token.value = null
+                return navigateTo('/auth/login')
+            }
+            
+        }
+        
     }
     
     if (to.meta.requiresAuth && !authStore.isAuthenticated && to.path !== '/auth/login'){

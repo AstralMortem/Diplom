@@ -14,6 +14,7 @@ node_modules
 
 # System files
 *.log
+test_wer/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
