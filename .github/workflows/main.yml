@@ -68,7 +68,7 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           dir: gui
-          cmd: install
+          cmd: install --network-timeout 100000
 
       # - name: Install Tauri + Nuxt dependencies
       #   run: |
@@ -84,6 +84,7 @@ jobs:
       - name: Build Windows Installer
         uses: borales/actions-yarn@v4
         with:
+          dir: gui
           cmd: tauri build # will run `yarn build:prod` command
 
       - name: Upload Tauri Installer Artifact
