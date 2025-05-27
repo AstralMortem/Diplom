@@ -26,17 +26,17 @@ jobs:
       - name: Configure Poetry
         run: |
           cd backend
-          poetry install
+          python -m poetry install
 
       - name: "Test Backend"
         run: | 
           cd backend
-          poetry run pytest
+          python -m poetry run pytest
 
       - name: Build CLI with PyInstaller
         run: |
           cd backend
-          poetry run pyinstaller cli.spec
+          python -m poetry run pyinstaller cli.spec
 
       - name: Upload Server CLI Artifact
         uses: actions/upload-artifact@v4
