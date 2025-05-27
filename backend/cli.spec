@@ -5,7 +5,7 @@ a = Analysis(
     ['src/backend/cli.py'],
     pathex=[],
     binaries=[],
-    datas=[('config.env', '.'), ('migrations', './src/migrations')],
+    datas=[('config.env', '.'), ('src/migrations', 'migrations'),('src/alembic.ini', '.')],
     hiddenimports=["asyncpg.pgproto.pgproto", "fastapi_filter.ext.sqlalchemy", "fastapi_pagination.contrib.sqlalchemy", "zeroconf._utils.ipaddress", "zeroconf._handlers.answers"],
     hookspath=[],
     hooksconfig={},
