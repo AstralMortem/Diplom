@@ -1,8 +1,8 @@
-"""Init tables
+"""init
 
-Revision ID: eb17085fbdf5
+Revision ID: ae8d6449574b
 Revises: 
-Create Date: 2025-04-08 12:46:42.244134
+Create Date: 2025-05-27 17:11:57.542938
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'eb17085fbdf5'
+revision: str = 'ae8d6449574b'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -26,6 +26,8 @@ def upgrade() -> None:
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('contact_phone', sa.String(length=15), nullable=True),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('department_id')
     )
     op.create_index(op.f('ix_departments_name'), 'departments', ['name'], unique=True)
@@ -40,6 +42,8 @@ def upgrade() -> None:
     sa.Column('birth_data', sa.Date(), nullable=False),
     sa.Column('gender', sa.Enum('MALE', 'FEMALE', name='gender'), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('patient_id')
     )
     op.create_index(op.f('ix_patients_email'), 'patients', ['email'], unique=True)
@@ -48,12 +52,16 @@ def upgrade() -> None:
     sa.Column('permission_id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('resource', sa.String(length=100), nullable=False),
     sa.Column('action', sa.String(length=50), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('permission_id'),
     sa.UniqueConstraint('resource', 'action', name='uq_resource_action')
     )
     op.create_table('roles',
     sa.Column('role_id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('role_id')
     )
     op.create_index(op.f('ix_roles_name'), 'roles', ['name'], unique=True)
@@ -62,7 +70,7 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=150), nullable=False),
     sa.Column('hashed_password', sa.Text(), nullable=False),
     sa.Column('specialization', sa.String(length=100), nullable=False),
-    sa.Column('department_id', sa.Integer(), nullable=False),
+    sa.Column('department_id', sa.Integer(), nullable=True),
     sa.Column('role_id', sa.Integer(), nullable=False),
     sa.Column('first_name', sa.String(length=100), nullable=False),
     sa.Column('last_name', sa.String(length=100), nullable=False),
@@ -71,6 +79,8 @@ def upgrade() -> None:
     sa.Column('birth_data', sa.Date(), nullable=False),
     sa.Column('gender', sa.Enum('MALE', 'FEMALE', name='gender'), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.ForeignKeyConstraint(['department_id'], ['departments.department_id'], ),
     sa.ForeignKeyConstraint(['role_id'], ['roles.role_id'], ),
     sa.PrimaryKeyConstraint('doctor_id')
@@ -80,8 +90,10 @@ def upgrade() -> None:
     op.create_table('role_permissions',
     sa.Column('role_id', sa.Integer(), nullable=False),
     sa.Column('permission_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['permission_id'], ['permissions.permission_id'], ),
-    sa.ForeignKeyConstraint(['role_id'], ['roles.role_id'], ),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.ForeignKeyConstraint(['permission_id'], ['permissions.permission_id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['role_id'], ['roles.role_id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('role_id', 'permission_id')
     )
     op.create_table('medical_records',
@@ -90,6 +102,8 @@ def upgrade() -> None:
     sa.Column('doctor_id', sa.UUID(), nullable=False),
     sa.Column('department_id', sa.Integer(), nullable=False),
     sa.Column('examination_date', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.ForeignKeyConstraint(['department_id'], ['departments.department_id'], ),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctors.doctor_id'], ),
     sa.ForeignKeyConstraint(['patient_id'], ['patients.patient_id'], ),
@@ -101,9 +115,12 @@ def upgrade() -> None:
     sa.Column('audio_url', sa.Text(), nullable=False),
     sa.Column('audio_duration', sa.Integer(), nullable=False),
     sa.Column('transcription_text', sa.Text(), nullable=False),
+    sa.Column('is_processed', sa.Boolean(), nullable=False),
     sa.Column('asr_model', sa.String(length=100), nullable=False),
     sa.Column('asr_config', sa.JSON(), nullable=False),
     sa.Column('language', sa.String(length=2), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.ForeignKeyConstraint(['record_id'], ['medical_records.record_id'], ),
     sa.PrimaryKeyConstraint('transcription_id', 'record_id')
     )
