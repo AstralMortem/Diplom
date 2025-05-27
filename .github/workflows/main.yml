@@ -64,16 +64,27 @@ jobs:
           toolchain: stable
           default: true
 
-      - name: Install Tauri + Nuxt dependencies
-        run: |
-          cd gui
-          yarn install 
+      - name: Install Tauri + Nuxt
+        uses: borales/actions-yarn@v4
+        with:
+          dir: gui
+          cmd: install
+
+      # - name: Install Tauri + Nuxt dependencies
+      #   run: |
+      #     cd gui
+      #     yarn install 
       
 
-      - name: Build Tauri Windows Installer
-        run: |
-          cd gui
-          yarn tauri build
+      # - name: Build Tauri Windows Installer
+      #   run: |
+      #     cd gui
+      #     yarn tauri build
+
+      - name: Build Windows Installer
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: tauri build # will run `yarn build:prod` command
 
       - name: Upload Tauri Installer Artifact
         uses: actions/upload-artifact@v4
