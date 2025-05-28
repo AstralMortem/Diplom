@@ -1,6 +1,6 @@
 [package]
 name = "med-voice"
-version = "1.0.8"
+version = "1.0.9"
 description = "MedVoice Tauri"
 authors = ["Chaliuk Vladyslav"]
 license = ""

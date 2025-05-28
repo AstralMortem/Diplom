@@ -9,6 +9,7 @@ const {data, status} = await useBackend('/api/v1/patients/',{
         size: 15
     },
     transform: (data) => {
+        console.log(data)
         return { 
             ...data,
             items: data.items.map(item => {
@@ -19,7 +20,7 @@ const {data, status} = await useBackend('/api/v1/patients/',{
         })}
     },
     cache: 'no-cache',
-    credentials: 'include'
+    // credentials: 'include'
 })
 
 const {$backend} = useNuxtApp()

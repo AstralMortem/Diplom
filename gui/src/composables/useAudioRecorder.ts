@@ -24,8 +24,34 @@ export const useAudioRecorder = () => {
     }
   }
 
+  const isSuppoertWEBRTC = () => {
+    const hasWebRTC = !!(
+    window.RTCPeerConnection ||
+    window.webkitRTCPeerConnection ||
+    window.mozRTCPeerConnection
+    );
+  
+    const hasGetUserMedia = !!(
+      navigator.mediaDevices &&
+      navigator.mediaDevices.getUserMedia
+    );
+    
+    return hasWebRTC && hasGetUserMedia;
+  }
+
+  const checkWebRTC = () => {
+    if (!isSuppoertWEBRTC()) {
+      toast.add({
+        title: "WebRTC is not supported",
+        description: "Please use a modern browser that supports WebRTC.",
+        color: "error"
+      })
+      throw new Error("WebRTC is not supported")
+    }
+  }
+
   const initRecorder = async () => {
-    console.log('Recorder inited')
+    checkWebRTC()
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
     mediaRecorder = new RecordRTC(stream, {
@@ -51,6 +77,8 @@ export const useAudioRecorder = () => {
         })
       }
     })
+
+    console.log('Recorder inited')
   }
 
   const startRecording = async () => {

@@ -1,0 +1,18 @@
+version: '3.6'
+
+services:
+
+  database:
+    image: postgres:16
+    container_name: medvoice_db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=medvoice
+      - POSTGRES_USER=medvoice
+      - POSTGRES_PASSWORD=medvoice
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

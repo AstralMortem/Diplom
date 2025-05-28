@@ -27,10 +27,13 @@
 const {modelParams, isInitialized} = useWhisper()
 const {isRecording, initRecorder, startRecording, stopRecording, audioURL} = useAudioRecorder()
 
-await initRecorder()
-// onMounted(async ()=>{
-  
-// })
+try{
+  await initRecorder()
+}catch(e){
+  abortNavigation()
+}
+
+
 
 </script>
 
