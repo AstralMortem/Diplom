@@ -43,6 +43,7 @@ watch(summarizedFragments, ()=>{
 
 const {$backend} = useNuxtApp()
 
+
 const saveTranscription = async () => {
   try{
     

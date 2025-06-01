@@ -7,6 +7,12 @@ interface TranscriptionFragment {
   end: number
 }
 
+const FILTER = ['[музика]', '[BLANK_AUDIO]']
+
+function isValidFragment(fragment: TranscriptionFragment): boolean {
+  return !FILTER.some(item => item.toLowerCase().trim() === fragment.text.toLowerCase().trim());
+}
+
 
 export const useAudioRecorder = () => {
   const toast = useToast()
@@ -19,7 +25,7 @@ export const useAudioRecorder = () => {
   let mediaRecorder: RecordRTC 
 
   onTranscript.onmessage = (fragment) => {
-    if (!fragment.text.includes("[BLANK_AUDIO]") || !fragment.text.includes("[музика]")){
+    if(isValidFragment(fragment)){
       fragments.value.push(fragment)
     }
   }
@@ -88,7 +94,7 @@ export const useAudioRecorder = () => {
         color: 'error'
       })
     }else{
-      invoke("start_transcription", {onTranscript: onTranscript})
+      invoke("start_transcription", {onTranscript})
       .then(()=>{
         mediaRecorder.startRecording()
         isRecording.value = true

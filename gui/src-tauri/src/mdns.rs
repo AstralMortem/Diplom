@@ -1,8 +1,5 @@
-use mdns_sd::{ServiceDaemon, ServiceEvent, ServiceInfo};
-use std::collections::HashMap;
-use std::net::IpAddr;
+use mdns_sd::{ServiceDaemon, ServiceEvent};
 use std::sync::{Arc, Mutex};
-use std::time::Duration;
 
 #[tauri::command]
 pub async fn discover_services(service_type: String) -> Result<String, String> {

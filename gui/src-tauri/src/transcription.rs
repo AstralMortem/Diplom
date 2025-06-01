@@ -4,7 +4,6 @@ use tauri::ipc::Channel;
 use whisper_rs::{FullParams, SamplingStrategy, WhisperContext, WhisperContextParameters};
 use serde::{Deserialize, Serialize};
 use ollama_rs::generation::completion::request::GenerationRequest;
-use tokio::io::{self, AsyncWriteExt};
 use tokio_stream::StreamExt;
 use ollama_rs::Ollama;
 
@@ -16,7 +15,6 @@ pub struct TranscriptionState<'a, 'b> {
     buffer: Arc<Mutex<Vec<f32>>>,
     is_recording: Arc<Mutex<bool>>,
     params: Arc<Mutex<FullParams<'a, 'b>>>,
-    language: Arc<Mutex<&'a str>>,
 }
 
 
@@ -35,7 +33,6 @@ impl<'a, 'b> TranscriptionState<'a, 'b> {
             buffer: Arc::new(Mutex::new(Vec::<f32>::new())),
             is_recording: Arc::new(Mutex::new(false)),
             params: Arc::new(Mutex::new(FullParams::new(SamplingStrategy::Greedy{ best_of: 1 }))),
-            language: Arc::new(Mutex::new("uk")),
         }
     }
 }
@@ -95,7 +92,8 @@ pub fn start_transcription<'a, 'b>(state: State<'_, TranscriptionState<'a, 'b>>,
                         start: start_timestamp,
                         end: end_timestamp,
                     };
-                
+
+                    println!("{}", result.text);
                     on_transcript.send(result).unwrap();
 
                 }
@@ -184,7 +182,7 @@ pub async fn process_conversation(conversation: String, on_process: Channel<Stri
     while let Some(res) = stream.next().await {
         let responses = res.unwrap();
         for resp in responses{
-            on_process.send(resp.response.to_string());
+            let _ = on_process.send(resp.response.to_string());
         }
     }
 
